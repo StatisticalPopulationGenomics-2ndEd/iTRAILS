@@ -1,0 +1,24 @@
+fixed_parameters:
+  mu: 1.0e-08
+optimized_parameters:
+  N_AB: 5765.843118242352
+  N_ABC: 201395.60251260828
+  r: 1.4001031089481962e-09
+  t_1: 442906.84487895935
+  t_2: 61688.06957619827
+  t_upper: 688980.4474692013
+results:
+  iteration: 127
+  log_likelihood: -76133045.26862296
+settings:
+  input_maf: ./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf
+  method: Nelder-Mead
+  n_cpu: 64
+  n_int_AB: 3
+  n_int_ABC: 3
+  output_prefix: ./data/output/optimization/example
+  species_list:
+  - hg38
+  - panTro5
+  - gorGor5
+  - ponAbe2
