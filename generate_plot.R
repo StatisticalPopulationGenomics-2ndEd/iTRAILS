@@ -1,8 +1,47 @@
 library(tidyverse)
 
-hidden_states <- read_csv("./data/output/viterbi/hidden_states.csv")
-post_block32 <- read_csv("./data/output/posterior/exampleblck32.posterior.csv")
+hidden_states <- read_csv("./data/output/posterior/hidden_states.csv")
+posterior <- read_csv("./data/output/posterior/exampleblck32.posterior.csv")
 viterbi <- read_csv("./data/output/viterbi/exampleblck32.viterbi.csv")
+
+topo_levels <- c("({sp1,sp2},sp3)",
+                 "((sp1,sp2),sp3)",
+                 "((sp1,sp3),sp2)",
+                 "((sp2,sp3),sp1)")
+
+
+post_block32 <- posterior %>%
+  mutate(position_idx = na_if(position_idx, -9)) %>%
+  drop_na(position_idx) %>%
+  
+  pivot_longer(
+    cols = starts_with("prob_state_"),
+    names_to = "state_col",
+    values_to = "prob"
+  ) %>%
+  
+  mutate(state_idx = as.integer(readr::parse_number(state_col))) %>%
+  select(-state_col) %>%
+  
+  left_join(hidden_states %>% transmute(state_idx = as.integer(state_idx), topology),
+            by = "state_idx") %>%
+            
+  group_by(alignment_block_idx, position_idx, topology) %>%
+  summarise(prob = sum(prob, na.rm = TRUE), .groups = "drop") %>%
+  
+  mutate(topology = factor(topology, levels = topo_levels)) %>%
+  pivot_wider(names_from = topology, values_from = prob) %>%
+  mutate(across(all_of(topo_levels), ~coalesce(.x, 0))) %>%
+  
+  select(alignment_block_idx, position_idx, all_of(topo_levels)) %>%
+  arrange(alignment_block_idx, position_idx)
+
+print(post_block32)
+print(min(post_block32$position_idx))
+print(max(post_block32$position_idx))
+
+position_start <- min(post_block32$position_idx)
+position_end <- max(post_block32$position_idx)  
 
 state_mapping <- hidden_states %>% 
   select(state_idx, topology)
@@ -22,6 +61,8 @@ post_long <- post_block32 %>%
 
 
 viterbi <- viterbi %>%
+  mutate(Block_idx = as.integer(Block_idx)) %>%
+  filter(Block_idx == 32) %>%
   mutate(most_likely_state = as.numeric(most_likely_state)) %>%
   left_join(state_mapping, by = c("most_likely_state" = "state_idx")) %>%
   arrange(position_start) %>% 
@@ -64,7 +105,9 @@ top_vec <- c("({Human,Chimp},Gorilla)",
              "((Human,Chimp),Gorilla)", 
              "((Human,Gorilla),Chimp)", 
              "((Chimp,Gorilla),Human)")
-             
+
+xlim_rng <- range(post_block32$position_idx, na.rm = TRUE)
+
 p <- ggplot(post_long) +
   geom_line(aes(x = position_idx, y = probability, color = topology)) +
   geom_rect(aes(xmin = position_start, xmax = position_end, 

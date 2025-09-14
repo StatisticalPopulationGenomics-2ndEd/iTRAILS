@@ -37,7 +37,7 @@ For the given output, optimization was run for 3 hours in a HPC with 64 CPUs and
 Use the Command Line Interface (CLI) to run Viterbi decoding using the resulting best model from the optimization as input:
 
 ```bash
-itrails-viterbi "./data/output/optimization/example.best_model.yaml"
+itrails-viterbi --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38"
 ```
 
 Viterbi results shown in `./data/output/viterbi/exampleblck32.viterbi.csv` are pruned to alignment block number 32 for tidyness, output for the viterbi function will include in similar order information for every alignment block named as `example.viterbi.csv`.
@@ -47,7 +47,7 @@ Viterbi results shown in `./data/output/viterbi/exampleblck32.viterbi.csv` are p
 Use the Command Line Interface (CLI) to run posterior decoding using the resulting best model from the optimization as input:
 
 ```bash
-itrails-posterior "./data/output/optimization/example.best_model.yaml"
+itrails-posterior --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38"
 ```
 
 Posterior results shown in `./data/output/posterior/exampleblck32.posterior.csv` are pruned to alignment block number 32 for tidyness, output for the posterior function will include in similar order information for every alignment block named as `example.posterior.csv`.
