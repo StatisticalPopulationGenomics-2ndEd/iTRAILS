@@ -1,4 +1,4 @@
-# Example configuration for itrails-optimize (itrails 2.0.5)
+# Example configuration for itrails-optimize (itrails 2.0.6)
 fixed_parameters:
   mu: 1.25e-8
 
@@ -19,4 +19,4 @@ settings:
   species_list: ["hg38", "panTro5", "gorGor5", "ponAbe2"]
   n_int_AB: 3
   n_int_ABC: 3
-  n_iter: 100000
+  n_iter: 10000

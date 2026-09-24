@@ -5,15 +5,15 @@ This repository contains the files needed to run the example analysis of iTRAILS
 iTRAILS can be installed as a pip package:
 
 ```bash
-pip install itrails==2.0.5
+pip install itrails==2.0.6
 ```
 
 Or as a conda package from conda-forge
 
 ```bash
-conda install conda-forge::itrails=2.0.5
+conda install conda-forge::itrails=2.0.6
 ```
->  This tutorial was run under itrails v2.0.5, the environment used is pinned in [`env/`](env/) for reproducibility
+>  This tutorial was run under itrails v2.0.6, the environment used is pinned in [`env/`](env/) for reproducibility
 
 ## 2- Download necessary alignment file
 

@@ -1,4 +1,4 @@
-# Environment that ran the iTRAILS chapter worked example (itrails 2.0.5).
+# Environment that ran the iTRAILS chapter worked example (itrails 2.0.6).
 # Recreate:   conda env create -f env/environment.yml && conda activate itrails_chapter_26
 # Exact Linux x86-64 rebuild:
 #   conda create -n itrails_chapter_26 --file env/conda-linux-64-explicit.txt
@@ -35,7 +35,7 @@ dependencies:
       - grpcio==1.84.0
       - h5py==3.16.0
       - idna==3.20
-      - itrails==2.0.5
+      - itrails==2.0.6
       - joblib==1.4.2
       - jsonschema-specifications==2025.9.1
       - jsonschema==4.26.0
