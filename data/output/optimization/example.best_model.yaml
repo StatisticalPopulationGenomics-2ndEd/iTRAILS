@@ -1,23 +1,23 @@
 fixed_parameters:
-  mu: 1.0e-08
+  mu: 1.25e-08
 optimized_parameters:
-  N_AB: 253811.7631687479
-  N_ABC: 418633.93582074575
-  r: 9.559313918879918e-09
-  t_A: 275503.8445207159
-  t_B: 291842.87526316474
-  t_2: 244526.21605444377
-  t_upper: 406126.4498832588
+  N_AB: 275085.5895384617
+  N_ABC: 225753.8795344255
+  r: 1.2119216905532213e-08
+  t_2: 179308.2656378451
+  t_A: 239162.84640095258
+  t_B: 251798.9512250716
+  t_upper: 395846.3046251152
 results:
-  iteration: 532
-  log_likelihood: -76124589.60697602
+  iteration: 925
+  log_likelihood: -76113263.78246652
 settings:
   input_maf: ./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf
-  output_prefix: ./data/output/optimization/example
   method: Nelder-Mead
   n_cpu: 64
   n_int_AB: 3
   n_int_ABC: 3
+  output_prefix: ./data/output/optimization/example
   species_list:
   - hg38
   - panTro5
