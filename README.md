@@ -5,14 +5,15 @@ This repository contains the files needed to run the example analysis of iTRAILS
 iTRAILS can be installed as a pip package:
 
 ```bash
-pip install itrails
+pip install itrails==2.0.6
 ```
 
 Or as a conda package from conda-forge
 
 ```bash
-conda install conda-forge::itrails
+conda install conda-forge::itrails=2.0.6
 ```
+>  This tutorial was run under itrails v2.0.6, the environment used is pinned in [`env/`](env/) for reproducibility
 
 ## 2- Download necessary alignment file
 
@@ -20,7 +21,7 @@ Download the example 4 way alignment file from a chromosome 1 region between Hum
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14930374.svg)](https://doi.org/10.5281/zenodo.14930374)
 
-Place the file in `./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf`.
+Place the file (named `example_alignment.maf` on Zenodo) in `./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf`.
 
 ## 3- Run optimization of parameters
 
@@ -30,14 +31,14 @@ Use the Command Line Interface (CLI) to run the optimization:
 itrails-optimize "./data/input/optimization/example_config.yaml" --input "./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf" --output "./data/output/optimization/example"
 ```
 
-For the given output, optimization was run for 3 hours in a HPC with 64 CPUs and 1GB allocated per CPU. Optimization results can be seen in `./data/output/optimization`.
+For the given output, optimization was run for about 25 hours in a HPC with 64 CPUs and 1GB allocated per CPU. Optimization results can be seen in `./data/output/optimization`.
 
 ## 4- Run Viterbi decoding
 
 Use the Command Line Interface (CLI) to run Viterbi decoding using the resulting best model from the optimization as input:
 
 ```bash
-itrails-viterbi --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38"
+itrails-viterbi --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38" --output "./data/output/viterbi/example"
 ```
 
 Viterbi results shown in `./data/output/viterbi/exampleblck32.viterbi.csv` are pruned to alignment block number 32 for tidyness, output for the viterbi function will include in similar order information for every alignment block named as `example.viterbi.csv`.
@@ -47,7 +48,7 @@ Viterbi results shown in `./data/output/viterbi/exampleblck32.viterbi.csv` are p
 Use the Command Line Interface (CLI) to run posterior decoding using the resulting best model from the optimization as input:
 
 ```bash
-itrails-posterior --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38"
+itrails-posterior --config-file "./data/output/optimization/example.best_model.yaml" --reference "hg38" --output "./data/output/posterior/example"
 ```
 
 Posterior results shown in `./data/output/posterior/exampleblck32.posterior.csv` are pruned to alignment block number 32 for tidyness, output for the posterior function will include in similar order information for every alignment block named as `example.posterior.csv`.

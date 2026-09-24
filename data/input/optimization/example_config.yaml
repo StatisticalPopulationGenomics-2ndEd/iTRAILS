@@ -1,15 +1,15 @@
-# Example configuration for itrails-optimize
+# Example configuration for itrails-optimize (itrails 2.0.6)
 fixed_parameters:
-  mu: 1e-8
+  mu: 1.25e-8
 
 optimized_parameters: # [starting, min, max]
-  N_AB: [50000, 5000, 500000]
-  N_ABC: [50000, 5000, 500000]
-  t_1: [240000, 24000, 2400000]
-  t_2: [40000, 4000, 400000]
-  t_3: [800000, 80000, 8000000]
-  t_upper: [745069.3855, 74506.9385, 7450693.8556]
-  r: [1e-8, 1e-9, 1e-7]
+  N_AB: [170000, 1000, 2000000]
+  N_ABC: [100000, 10000, 3000000]
+  t_A: [220000, 50000, 2000000]
+  t_B: [220000, 50000, 2000000]
+  t_2: [195000, 5000, 1000000]
+  t_upper: [216139, 1000, 2000000] # = t_3 - N_ABC*ln(3); equivalent t_3 = 216139 + 100000*ln(3) = 326000.23 (t_3 omitted: ignored when t_upper is given)
+  r: [1.2e-8, 1.0e-10, 1.0e-7]
 
 settings:
   input_maf: ./data/input/optimization/4way_chr1_human_chimp_gorilla_orangutan.maf
@@ -19,3 +19,4 @@ settings:
   species_list: ["hg38", "panTro5", "gorGor5", "ponAbe2"]
   n_int_AB: 3
   n_int_ABC: 3
+  n_iter: 10000

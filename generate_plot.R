@@ -1,6 +1,6 @@
 library(tidyverse)
 
-hidden_states <- read_csv("./data/output/posterior/hidden_states.csv")
+hidden_states <- read_csv("./data/output/posterior/example.hidden_states.csv")
 posterior <- read_csv("./data/output/posterior/exampleblck32.posterior.csv")
 viterbi <- read_csv("./data/output/viterbi/exampleblck32.viterbi.csv")
 
@@ -11,6 +11,7 @@ topo_levels <- c("({sp1,sp2},sp3)",
 
 
 post_block32 <- posterior %>%
+  filter(alignment_block_idx == 32) %>%
   mutate(position_idx = na_if(position_idx, -9)) %>%
   drop_na(position_idx) %>%
   
